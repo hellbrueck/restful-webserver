@@ -1,19 +1,21 @@
 const app = require('express')()
 
-app.get('/konten/:kontonummer/kontostand',
-	(req, res) => res.json({ "kontostand": -100 }))
+app.get('/sensor/:sensorid/value', (req, res) => {
+	const newValue= 20 + Math.random();
+	res.json({ "value": ${newValue} });
+})
 
-app.post('/konten/', (req, res) => {
+app.post('/sensor/', (req, res) => {
 	const newId = Math.floor(Math.random() * Math.floor(1000000));
-	res.writeHead(302, { 'Location': `/konten/${newId}` });
+	res.writeHead(302, { 'Location': `/sensor/${newId}` });
 	res.end();
 })
 
-app.put('/konten/:kontonummer',
+app.put('/sensor/:sensorid',
 	(req, res) => res.json({ "status": "Ok, angepasst" }))
 
-app.delete('/konten/:kontonummer',
-	(req, res) => res.json({ "status": "Konto gelöscht" }))
+app.delete('/sensor/:sensorid',
+	(req, res) => res.json({ "status": "Sensor gelöscht" }))
 
 app.set('port', (process.env.PORT || 8080))
 app.listen(app.get('port'),
